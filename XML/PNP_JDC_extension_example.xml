@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="../RELAX NG Schema/imsqtiv3p0_afa3p0pnp_v1p0_JPL01.rnc" type="application/relax-ng-compact-syntax"?>
+<access-for-all-pnp xmlns="http://www.imsglobal.org/xsd/qti/qtiv3p0/imsafa3p0pnp_v1p0"
+		    xmlns:JPNP="https://kaken.nii.ac.jp/ja/grant/KAKENHI-PROJECT-21H04419/PNP/0.1">
+  <!-- この仕事はJSPS科研費JP21H04419の助成をうけたものです。 -->
+  <!-- This work was supported by JSPS KAKENHI Grant Number JP21H04419. -->
+    <text-appearance>
+        <background-color>#FFFFFF</background-color>
+        <font-color>#000000</font-color>
+        <font-face><generic-font-face>sans serif</generic-font-face></font-face>
+        <font-size>14</font-size>
+        <letter-spacing>0.2</letter-spacing>
+        <line-height>2.2</line-height>
+        <word-wrapping></word-wrapping>
+    </text-appearance>
+    <JPNP:ruby-distance>0.1</JPNP:ruby-distance>
+    <JPNP:ruby-font-size>10</JPNP:ruby-font-size>
+    <JPNP:ruby-font-face>
+        <generic-font-face>sans serif</generic-font-face>
+    </JPNP:ruby-font-face>
+    <JPNP:ruby-font-color>#000000</JPNP:ruby-font-color>
+    <JPNP:ruby-type>prefer-sou-ruby</JPNP:ruby-type>
+    <JPNP:space-separation>prefer-space-separation</JPNP:space-separation>
+    <JPNP:vertical-or-horizontal-writing>prefer-horizontal</JPNP:vertical-or-horizontal-writing>
+</access-for-all-pnp>   

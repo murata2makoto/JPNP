@@ -1,0 +1,75 @@
+default namespace afapnp = 
+    "http://www.imsglobal.org/xsd/qti/qtiv3p0/imsafa3p0pnp_v1p0"
+
+namespace JPNP =
+  "https://kaken.nii.ac.jp/ja/grant/KAKENHI-PROJECT-21H04419/PNP/0.1"
+
+# この仕事はJSPS科研費JP21H04419の助成をうけたものです。
+# This work was supported by JSPS KAKENHI Grant Number JP21H04419.
+
+# 科研費 基盤研究(A) 21H04419
+# 多様な受験者の高度テスト配慮を実現したCBT環境の開発と教育テスト実施改善の研究
+
+start = access-for-all-pnp | access-for-all-pnp-records
+
+HexDType = xsd:string { pattern = "(#)[A-F0-9]{6}" }
+AccessForAllPNPDType =
+    element text-appearance { TextAppearanceDType }?
+
+AccessForAllPNPRecordDType =
+    element person-sourced-id { PersonSourcedIdDType },
+    element appointment-id { xsd:normalizedString }*,
+    access-for-all-pnp
+
+AccessForAllPNPRecordsDType = element access-for-all-pnp-record { AccessForAllPNPRecordDType }+
+
+FontFaceDType =
+     element generic-font-face { "serif" | "sans serif" }
+     # Specify "serif" and "sans serif" for Mincho and Gothic Japanese fonts, respectively.  See CSS Fonts Module Level 3, 
+     # available at https://www.w3.org/TR/css-fonts-3/ 
+
+TextAppearanceDType =
+  # Dropped line-spacing, since line-height is preferable.
+    (element background-color { HexDType }? #  #FFFFFF is assumed if this element is absent.
+     & element font-color { HexDType }? #  #000000 is assumed if this element is absent.
+     & element font-size { xsd:float }? # Size of a font. This value is in points.  "12.0" is assumed if this element is absent.
+     & element font-face { FontFaceDType }? # The font face. This is an enumerated vocabulary.  "serif" is assumed if this element is absent.
+     & element line-height { xsd:float }? #  A value more than 2 is recommended. 2 is assumed if this element is absent. 
+     & element letter-spacing { xsd:float }? # The spacing between letters. This value is in points. 0 is assumed if this element is absent.
+     & element word-spacing { xsd:float }? # The spacing between words. This value is in points.
+     & element word-wrapping { empty }?) # Defines if word wrapping is to be used. If present then word wrapping is to be used; otherwise, no word wrapping.  
+
+
+PersonSourcedIdDType =
+    xsd:normalizedString,
+    attribute source-system { xsd:normalizedString }
+
+access-for-all-pnp = element access-for-all-pnp { AccessForAllPNPDType }
+access-for-all-pnp-records = element access-for-all-pnp-records { AccessForAllPNPRecordsDType }
+
+AccessForAllPNPDType &= 
+     element JPNP:vertical-or-horizontal-writing
+        {"prefer-vertical" | "prefer-horizontal" | "no-preference"}?  # "no-preference" is assumed if this element is absent.
+     &  element JPNP:space-separation
+        {"prefer-space-separation" | "prefer-no-space-separation" | "no-preference"}?  # "no-preference" is assumed if this element is absent.
+     &  element JPNP:ruby-type
+        {"prefer-sou-ruby" | "prefer-para-ruby" | "prefer-no-ruby" | "no-preference"}?  # "no-preference" is assumed if this element is absent.
+     &  element JPNP:ruby-distance { xsd:float }? # Distance from the base character.  The use value is this number multiplied by the font size of the font-size property.  0 is assumed if this element is absent.
+     &  element JPNP:ruby-font-color {HexDType}? #  #000000 is assumed if this element is absent.
+     &  element JPNP:ruby-font-size { xsd:float }? # Size of a ruby font.  This value is in points.   "6.0" is assumed if this element is absent.
+     &  element JPNP:ruby-font-face { FontFaceDType }? #  "serif" is assumed if this element is absent.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

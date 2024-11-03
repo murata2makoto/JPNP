@@ -1,0 +1,151 @@
+educationalComplexityOfAdaptation = element
+  educationalComplexityOfAdaptation { "afaterms-enriched" |
+  "afaterms-simplified"}
+
+hazardAvoidance = element hazardAvoidance { "afaterms-flashing" |
+  "afaterms-sound" | "afaterms-olfactoryHazard" |
+  "afaterms-motionSimulation"}
+
+inputRequirements = element inputRequirements {
+  "afaterms-fullKeyboardControl" | "afaterms-fullMouseControl" }
+
+atInteroperable =
+  element atInteroperable {xsd:boolean}
+
+educationalLevelOfAdaptation =
+    element educationalLevelOfAdaptation {xs:normalizedString}
+
+languageOfAdaptation = 
+    element languageOfAdaptation {xs:normalizedString}
+
+languageOfInterface = 
+    element languageOfInterface {xs:normalizedString}
+
+Access_For_All_User.Type =
+    accessModeRequired*,
+    adaptationTypeRequired*,
+    atInteroperable*,
+    educationalComplexityOfAdaptation*,
+    hazardAvoidance*,
+    inputRequirements*,
+    languageOfAdaptation*,
+    languageOfInterface*,
+    adaptationDetailRequired*,
+    adaptationMediaRequired*,
+    educationalLevelOfAdaptation*,
+    grpStrict.any
+
+AccessModeRequired.Type =
+  element existingAccessMode {
+    "afaterms-auditory" | 
+    "afaterms-colour" | 
+    "afaterms-itemSize" | 
+    "afaterms-olfactory" | 
+    "afaterms-orientation" | 
+    "afaterms-position" | 
+    "afaterms-tactile" | 
+    "afaterms-textOnImage" | 
+    "afaterms-textual" | 
+    "afaterms-visual"
+  },
+  element adaptationRequest {
+    "afaterms-auditory" | 
+    "afaterms-colour" | 
+    "afaterms-itemSize" | 
+    "afaterms-olfactory" | 
+    "afaterms-orientation" | 
+    "afaterms-position" | 
+    "afaterms-tactile" | 
+    "afaterms-textOnImage" | 
+    "afaterms-textual" | 
+    "afaterms-visual"}
+
+AdaptationDetailRequired.Type =
+  element existingAccessMode {
+    "afaterms-auditory" | 
+    "afaterms-colour" | 
+    "afaterms-itemSize" | 
+    "afaterms-olfactory" | 
+    "afaterms-orientation" | 
+    "afaterms-position" | 
+    "afaterms-tactile" | 
+    "afaterms-textOnImage" | 
+    "afaterms-textual" | 
+    "afaterms-visual"
+  },
+  element adaptationRequest {
+    "afaterms-enhanced" |
+    "afaterms-verbatim" |
+    "afaterms-realTime" |
+    "afaterms-symbolic" |
+    "afaterms-recorded" |
+    "afaterms-synthesized"
+  }
+  
+AdaptationMediaRequired =
+  element existingAccessMode {
+    "afaterms-auditory" |
+    "afaterms-colour" |
+    "afaterms-itemSize" |
+    "afaterms-olfactory" |
+    "afaterms-orientation" |
+    "afaterms-position" |
+    "afaterms-tactile" |
+    "afaterms-textOnImage" |
+    "afaterms-textual" |
+    "afaterms-visual"
+  },
+  element adaptationRequest {
+    "afaterms-Daisy |
+    "afaterms-braille |
+    "afaterms-NIMAS |
+    "afaterms-MathML |
+    "afaterms-ChemML |
+    "afaterms-LaTeX |
+    "afaterms-OEBPS |
+    "afaterms-PDF |
+    "afaterms-LIT |
+    "afaterms-Nemeth |
+    "afaterms-EPUB3
+  }
+
+AdaptationTypeRequired.Type = 
+  element existingAccessMode {
+    "afaterms-auditory" |
+    "afaterms-colour" |
+    "afaterms-itemSize" |
+    "afaterms-olfactory" |
+    "afaterms-orientation" |
+    "afaterms-position" |
+    "afaterms-tactile" |
+    "afaterms-textOnImage" |
+    "afaterms-textual" |
+    "afaterms-visual"
+  },
+  element adaptationRequest {
+    "afaterms-alternativeText" |
+    "afaterms-audioDescription" |
+    "afaterms-captions" |
+    "afaterms-e-book" |
+    "afaterms-haptic" |
+    "afaterms-highContrast" |
+    "afaterms-longDescription" |
+    "afaterms-signLanguage" |
+    "afaterms-transcript"
+  }
+
+accessModeRequired = 
+  element accessModeRequired {AccessModeRequired.Type}
+
+adaptationDetailRequired = 
+  element adaptationDetailRequired {AdaptationDetailRequired.Type}
+
+adaptationMediaRequired = 
+  element adaptationMediaRequired {AdaptationMediaRequired.Type}
+
+adaptationTypeRequired = 
+  element adaptationTypeRequired {AdaptationTypeRequired.Type}
+
+start =
+  element accessForAllUser {Access_For_All_User.Type}
+

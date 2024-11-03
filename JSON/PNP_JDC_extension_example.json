@@ -1,0 +1,21 @@
+{
+    "access-for-all-pnp": {
+        "text-appearance": {
+            "background-color": "#FFFFFF",
+            "font-color": "#000000",
+            "font-face": {
+                "generic-font-face": "sans serif"
+            },
+            "font-size": 14,
+            "letter-spacing": 0.2,
+            "line-height": 2.2,
+            "word-wrapping": "active"
+        },
+        "ruby-distance": 0.1,
+        "ruby-font-size": 10,
+        "ruby-font-color": "#000000",
+        "ruby-type": "prefer_sou_ruby",
+        "space-separation": "prefer_space_separation",
+        "vertical-or-horizontal-writing": "prefer-horizontal"
+    }
+}

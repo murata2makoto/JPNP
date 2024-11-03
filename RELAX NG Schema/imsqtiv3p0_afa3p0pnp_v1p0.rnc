@@ -1,0 +1,201 @@
+default namespace afapnp = 
+    "http://www.imsglobal.org/xsd/qti/qtiv3p0/imsafa3p0pnp_v1p0"
+
+
+start = access-for-all-pnp | access-for-all-pnp-records
+grpStrict.any =
+    element *-afapnp:* {
+        mixed { grpStrict.any* },
+        attribute * { text }*
+    }
+EmptyPrimitiveTypeDType = xsd:string
+ExtensionStringDType = xsd:string { pattern = "(ext:)[a-z|A-Z|.|_]+" }
+HexDType = xsd:string { pattern = "(#)([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})" }
+VolumeDType = xsd:float { maxInclusive = "1.0" }
+AccessForAllPNPDType =
+    (element hazard-avoidance {
+         "flashing" | "sound" | "olfactory-hazard" | "motion-simulation" | ExtensionStringDType
+     }*
+     | element input-requirements {
+           "full-keyboard-control" | "full-mouse-control" | ExtensionStringDType
+       }?
+     | element language-of-interface { LanguageModeDType }*
+     | element linguistic-guidance { ReplacesAccessModeDType }?
+     | element keyword-emphasis { ReplacesAccessModeDType }?
+     | element keyword-translation { LanguageModeDType }?
+     | element simplified-language-portions { ReplacesAccessModeDType }?
+     | element simplified-graphics { ReplacesAccessModeDType }?
+     | element item-translation { LanguageModeDType }?
+     | element sign-language { LanguageModeDType }?
+     | element encouragement { ReplacesAccessModeDType }?
+     | element additional-testing-time { AdditionalTestingTimeDType }?
+     | element line-reader { LineReaderDType }?
+     | element invert-display-polarity { InvertDisplayPolarityDType }?
+     | element magnification { MagnificationDType }?
+     | element spoken { SpokenDType }?
+     | element tactile { ReplacesAccessModeDType }?
+     | element braille { BrailleDType }?
+     | element answer-masking { ReplacesAccessModeDType }?
+     | element keyboard-directions { ReplacesAccessModeDType }?
+     | element additional-directions { ReplacesAccessModeDType }?
+     | element long-description { LongDescriptionDType }?
+     | element captions { ReplacesAccessModeDType }?
+     | element environment { EnvironmentDType }?
+     | element transcript { ReplacesAccessModeDType }?
+     | element alternative-text { ReplacesAccessModeDType }?
+     | element audio-description { ReplacesAccessModeDType }?
+     | element high-contrast { ReplacesAccessModeDType }?
+     | element layout-single-column { ReplacesAccessModeDType }?
+     | element text-appearance { TextAppearanceDType }?
+     | element calculator-on-screen { CalculatorDType }?
+     | element dictionary-on-screen { EmptyPrimitiveTypeDType }?
+     | element glossary-on-screen { EmptyPrimitiveTypeDType }?
+     | element thesaurus-on-screen { EmptyPrimitiveTypeDType }?
+     | element homophone-checker-on-screen { EmptyPrimitiveTypeDType }?
+     | element note-taking-on-screen { EmptyPrimitiveTypeDType }?
+     | element visual-organizer-on-screen { EmptyPrimitiveTypeDType }?
+     | element outliner-on-screen { EmptyPrimitiveTypeDType }?
+     | element peer-interaction-on-screen { EmptyPrimitiveTypeDType }?
+     | element spell-checker-on-screen { EmptyPrimitiveTypeDType }?
+     | element activate-at-initialization-set { FeatureSetDType }?
+     | element activate-as-option-set { FeatureSetDType }?
+     | element prohibit-set { FeatureSetDType }?
+     | grpStrict.any)*
+AccessForAllPNPRecordDType =
+    element person-sourced-id { PersonSourcedIdDType },
+    element appointment-id { xsd:normalizedString }*,
+    access-for-all-pnp
+AccessForAllPNPRecordsDType = element access-for-all-pnp-record { AccessForAllPNPRecordDType }+
+AdditionalTestingTimeDType =
+    ReplacesAccessModeDType,
+    (element time-multiplier { xsd:float }
+     | element fixed-minutes { xsd:integer }
+     | element unlimited { EmptyPrimitiveTypeDType })
+BrailleDType =
+    ReplacesAccessModeDType,
+    (element delivery-mode { "refreshable" | "embossed" }? # refreshable
+     | element grade { "1" | "2" | "3" }? # 2
+     | element braille-type { ExtensionStringDType | "ebae" | "ueb" }?
+     | element math-type { "nemeth" | "ueb" | ExtensionStringDType }?)*,
+    attribute xml:lang { text }?
+EnvironmentDType =
+    ReplacesAccessModeDType,
+    (element description { xsd:normalizedString }?
+     | element medical { xsd:normalizedString }?
+     | element software { xsd:normalizedString }?
+     | element hardware { xsd:normalizedString }?
+     | element breaks { xsd:boolean })*
+FeatureSetDType =
+    (element linguistic-guidance { EmptyPrimitiveTypeDType }?
+    | element keyword-emphasis { EmptyPrimitiveTypeDType }?
+    | element keyword-translation { EmptyPrimitiveTypeDType }?
+    | element simplified-language-portions { EmptyPrimitiveTypeDType }?
+    | element simplified-graphics { EmptyPrimitiveTypeDType }?
+    | element item-translation { EmptyPrimitiveTypeDType }?
+    | element sign-language { EmptyPrimitiveTypeDType }?
+    | element encouragement { EmptyPrimitiveTypeDType }?
+    | element additional-testing-time { EmptyPrimitiveTypeDType }?
+    | element line-reader { EmptyPrimitiveTypeDType }?
+    | element invert-display-polarity { EmptyPrimitiveTypeDType }?
+    | element magnification { EmptyPrimitiveTypeDType }?
+    | element spoken { EmptyPrimitiveTypeDType }?
+    | element tactile { EmptyPrimitiveTypeDType }?
+    | element braille { EmptyPrimitiveTypeDType }?
+    | element answer-masking { EmptyPrimitiveTypeDType }?
+    | element keyboard-directions { EmptyPrimitiveTypeDType }?
+    | element additional-directions { EmptyPrimitiveTypeDType }?
+    | element long-description { EmptyPrimitiveTypeDType }?
+    | element captions { EmptyPrimitiveTypeDType }?
+    | element transcript { EmptyPrimitiveTypeDType }?
+    | element alternative-text { EmptyPrimitiveTypeDType }?
+    | element audio-description { EmptyPrimitiveTypeDType }?
+    | element high-contrast { EmptyPrimitiveTypeDType }?
+    | element input-requirements { EmptyPrimitiveTypeDType }?
+    | element language-of-interface { EmptyPrimitiveTypeDType }?
+    | element layout-single-column { EmptyPrimitiveTypeDType }?
+    | element text-appearance { EmptyPrimitiveTypeDType }?
+    | element calculator-on-screen { EmptyPrimitiveTypeDType }?
+    | element dictionary-on-screen { EmptyPrimitiveTypeDType }?
+    | element glossary-on-screen { EmptyPrimitiveTypeDType }?
+    | element thesaurus-on-screen { EmptyPrimitiveTypeDType }?
+    | element homophone-checker-on-screen { EmptyPrimitiveTypeDType }?
+    | element note-taking-on-screen { EmptyPrimitiveTypeDType }?
+    | element visual-organizer-on-screen { EmptyPrimitiveTypeDType }?
+    | element outliner-on-screen { EmptyPrimitiveTypeDType }?
+    | element peer-interaction-on-screen { EmptyPrimitiveTypeDType }?
+    | element spell-checker-on-screen { EmptyPrimitiveTypeDType }?
+    | grpStrict.any)*
+FontFaceDType =
+    (element font-name { xsd:normalizedString }*
+     | element generic-font-face { "serif" | "sans serif" | "monospaced" | "cursive" | "fantasy" })*
+InvertDisplayPolarityDType =
+    ReplacesAccessModeDType,
+    attribute foreground { HexDType }?,
+    attribute background { HexDType }?
+LanguageModeDType =
+    ReplacesAccessModeDType,
+    attribute xml:lang { text }
+LineReaderDType =
+    ReplacesAccessModeDType,
+    attribute highlight-color { HexDType }?
+LongDescriptionDType =
+    ReplacesAccessModeDType,
+    attribute hide-visually { xsd:boolean }? ## true
+
+MagnificationDType =
+    ReplacesAccessModeDType,
+    (element all-content { ZoomAmountDType }?
+     | (element text { ZoomAmountDType }?,
+        element non-text { ZoomAmountDType }?)?)
+ReplacesAccessModeDType =
+    (element replace-access-mode-auditory { EmptyPrimitiveTypeDType }?
+    | element replace-access-mode-color { EmptyPrimitiveTypeDType }?
+    | element replace-access-mode-item-size { EmptyPrimitiveTypeDType }?
+    | element replace-access-mode-olfactory { EmptyPrimitiveTypeDType }?
+    | element replace-access-mode-orientation { EmptyPrimitiveTypeDType }?
+    | element replace-access-mode-position { EmptyPrimitiveTypeDType }?
+    | element replace-access-mode-tactile { EmptyPrimitiveTypeDType }?
+    | element replace-access-mode-text-on-image { EmptyPrimitiveTypeDType }?
+    | element replace-access-mode-textual { EmptyPrimitiveTypeDType }?
+    | element replace-access-mode-visual { EmptyPrimitiveTypeDType }?)*
+SpokenDType =
+    ReplacesAccessModeDType,
+    (element reading-type { "screen-reader" | "computer-read-aloud" }
+     | element restriction-type {
+           "unrestricted"
+           | "word-by-word"
+           | "directions-only"
+           | "skip-math-equations"
+           | "skip-chemistry-equations"
+           | ExtensionStringDType
+       }
+     | element speech-rate { xsd:integer }?
+     | element pitch { xsd:float }?
+     | element volume { VolumeDType }?
+     | element link-indication { "speak-link" | "different-voice" | "sound-effect" | "none" }
+     | element typing-echo { "characters" | "words" | "characters-and-words" | "none" })*
+TextAppearanceDType =
+    ReplacesAccessModeDType,
+    (element background-color { HexDType }?
+     | element font-color { HexDType }?
+     | element font-size { xsd:float }?
+     | element font-face { FontFaceDType }?
+     | element line-spacing { xsd:float }?
+     | element line-height { xsd:float }?
+     | element letter-spacing { xsd:float }?
+     | element uniform-font-sizing { EmptyPrimitiveTypeDType }?
+     | element word-spacing { xsd:float }?
+     | element word-wrapping { EmptyPrimitiveTypeDType }?)
+CalculatorDType =
+    EmptyPrimitiveTypeDType,
+    attribute calculator-type {
+        "basic" | "standard" | "scientific" | "graphing" | ExtensionStringDType
+    }?
+PersonSourcedIdDType =
+    xsd:normalizedString,
+    attribute source-system { xsd:normalizedString }
+ZoomAmountDType =
+    EmptyPrimitiveTypeDType,
+    attribute zoom-amount { xsd:float }?
+access-for-all-pnp = element access-for-all-pnp { AccessForAllPNPDType }
+access-for-all-pnp-records = element access-for-all-pnp-records { AccessForAllPNPRecordsDType }
