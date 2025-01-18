@@ -18,7 +18,7 @@
             "letter-spacing": 0.2,
             "ext:ruby-spacing": 0.1,	    
             "line-height": 2.2,
-	        "word-wrapping": "active",
+            "word-wrapping": "active",
             "ext:ruby-preference": "sou",
             "ext:additional-word-segmentation": "active",
             "ext:writing-direction-preference": "horizontal"
