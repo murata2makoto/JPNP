@@ -1,0 +1,125 @@
+#!meta
+
+{"kernelInfo":{"defaultKernelName":"csharp","items":[{"aliases":[],"name":"csharp"}]}}
+
+#!fsharp
+
+#r "nuget:QRCoder"
+
+#!fsharp
+
+let removeUnquotedWhiteSpaces (input: string) =
+    let mutable inQuotes = false
+    let stringBuilder = System.Text.StringBuilder()
+    
+    for ch in input do
+        match ch with
+        | '"' ->
+            inQuotes <- not inQuotes
+            stringBuilder.Append(ch) |> ignore
+        | ' ' | '\n' | '\r' | '\t' when not inQuotes -> ()
+        | _ -> stringBuilder.Append(ch) |> ignore
+    
+    stringBuilder.ToString()
+
+#!fsharp
+
+let replaceKeyWords (inputStr: string) =
+    let replStr = File.ReadAllText("../QR/stringReplacementDictionary.txt")
+    replStr.Split([|'\n';'\r'|], StringSplitOptions.RemoveEmptyEntries) 
+    |> Array.fold 
+        (fun (str: string) line -> 
+            let x = line.Split([|','|])
+            let replacementString = x.[1] |> int |> char |> string
+            str.Replace(x[0], replacementString) ) 
+        inputStr
+
+#!fsharp
+
+let minify inputFileName outputFileName = 
+    let inputStr = File.ReadAllText(inputFileName)
+    use outputFile = File.Create(outputFileName);
+    use textWriter = new StreamWriter(outputFile)
+    let withoutWS = inputStr |> removeUnquotedWhiteSpaces 
+    let content = inputStr |> removeUnquotedWhiteSpaces |> replaceKeyWords
+    fprintfn textWriter "%s" withoutWS
+ //   fprintfn textWriter "%s" content
+    
+
+#!fsharp
+
+open System.IO.Compression
+
+let compress inputFileName outputFileName = 
+    use originalFileStream = File.Open(inputFileName, FileMode.Open);
+    use compressedFileStream = File.Create(outputFileName);
+    use compressor = new DeflateStream(compressedFileStream, CompressionMode.Compress);
+    originalFileStream.CopyTo(compressor);
+
+#!fsharp
+
+minify "../example/PNP_JDC_extension_example.json"  "../example/PNP_JDC_extension_example_min.json"
+
+#!fsharp
+
+compress "../example/PNP_JDC_extension_example.json" "../example/PNP_JDC_extension_example_compressed"
+
+#!fsharp
+
+compress "../example/PNP_JDC_extension_example_min.json" "../example/PNP_JDC_extension_example_min_compressed"
+
+#!fsharp
+
+let binaryData = File.ReadAllBytes("../JSON/PNP_JDC_extension_example_min_compressed");
+
+#!fsharp
+
+binaryData
+
+#!fsharp
+
+Convert.ToBase64String(binaryData)
+
+#!fsharp
+
+Convert.FromBase64String(Convert.ToBase64String(binaryData))
+
+#!fsharp
+
+open QRCoder
+(*
+let generateQR64 (base64data: string) = 
+    let qrGenerator = new QRCodeGenerator();
+    let qrCodeData64 = qrGenerator.CreateQrCode(base64data, QRCodeGenerator.ECCLevel.Q);
+    let qrCode = new PngByteQRCode(qrCodeData64);
+    let qrCodeImage = qrCode.GetGraphic(20);
+    qrCodeImage
+*)
+
+let generateQRBin  (binaryData: byte array) = 
+    let qrGenerator = new QRCodeGenerator();
+    let qrCodeDataBinary = qrGenerator.CreateQrCode(binaryData, QRCodeGenerator.ECCLevel.Q);
+    let qrCode = new PngByteQRCode(qrCodeDataBinary);
+    let qrCodeImage = qrCode.GetGraphic(20);
+    qrCodeImage
+
+#!fsharp
+
+//File.WriteAllBytes("qrcode64.png", generateQR64 (Convert.ToBase64String(binaryData)))
+File.WriteAllBytes("../example/qrcodeBin.png", generateQRBin binaryData)
+
+#!fsharp
+
+(Convert.ToBase64String(binaryData))
+
+#!fsharp
+
+binaryData.Length
+
+#!fsharp
+
+(generateQRBin binaryData)
+
+#!fsharp
+
+generateQRCode "../JSON/PNP_JDC_extension_example_min_compressed" "../JSON/PNP_JDC_extension_example_min_compressed.png" 

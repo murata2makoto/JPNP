@@ -11,7 +11,7 @@
                 "ext:ruby-generic-font-face": "sans serif"
             },
             "input-requirements": {
-                "ext:arrow-key-navigation-fixed-interpretation": "active"
+                "ext:writing-mode-insensitive-UI": "active"
             },
             "font-size": 14,
             "ext:ruby-font-size": 10,	    
